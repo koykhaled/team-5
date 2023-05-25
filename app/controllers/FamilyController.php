@@ -18,6 +18,8 @@ class FamilyController extends Base
 
     public function index()
     {
+        $this->familyModel->getAllFamilies();
+
 
         $this->connect->getAllFamilies();
     }  
@@ -57,5 +59,24 @@ class FamilyController extends Base
             $this->redirect('');
             exit;
     }
+
+    public function edit($id)
+    {
+        $family = $this->familyModel->getFamilyById($id);
+        $family->setPhone($family->phone);
+        $family->setPersonNumber($family->individuals_number);
+        if($_SERVER['REQUEST_METHOD']==='POST')
+        {
+            $family->setPhone($_POST['phone']);
+            $family->setPersonNumber($_POST['individuals_number']);
+            $this->familyModel->edit_family($id);
+            header('Location: /');
+        }
+        else
+        {
+            $this->render('family/edit', compact('family'));
+        }
+
+    } 
 }
  
