@@ -18,6 +18,6 @@ class FamilyController extends Base
 
     public function index()
     {
-        $this->connect->getAllFamilies();
+        $families = $this->familyModel->getAllFamilies();
     }
 }
