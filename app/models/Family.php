@@ -8,19 +8,22 @@ class Family extends Model
     protected $id,
         $fname,
         $mname,
-        $lname,  
+        $lname,
         $phone,
         $location_id,
-        $individuals_number; 
+        $status,
+        $individuals_number;
 
     public function setFname($fname)
     {
         $this->fname = $fname;
     }
+
     public function setMname($mname)
     {
         $this->mname = $mname;
     }
+
     public function setLname($lname)
     {
         $this->lname = $lname;
@@ -34,9 +37,15 @@ class Family extends Model
     {
         $this->location_id = $location_id;
     }
+
     public function setPersonNumber($number)
     {
         $this->individuals_number = $number;
+    }
+
+    public function setStatus($staus)
+    {
+        $this->status = $staus;
     }
 
     public function getFname()
@@ -50,6 +59,10 @@ class Family extends Model
     public function getLname()
     {
         return $this->lname;
+    }
+    public function getStatus()
+    {
+        return $this->status;
     }
 
     public function getPhone()
@@ -74,16 +87,19 @@ class Family extends Model
             $family->setId($result->id);
             $family->setFname($result->fname);
             $family->setMname($result->mname);
-            $family->setFname($result->lname);
+            $family->setLname($result->lname);
             $family->setPhone($result->phone);
+            $family->setStatus($result->status);
+            $family->setLocid($result->location_id);
             $family->setPersonNumber($result->individuals_number);
             $families[] = $family;
         }
+        return $families;
     }
 
     public function getFamilyById($family_id)
     {
-        $select = "SELECT * FROM families join locations on families.location_id = locations.id where id = :family_id";
+        $select = "SELECT * FROM families  where id = :family_id";
         $query = $this->connect->prepare($select);
         $query->execute(['family_id' => $family_id]);
         $family = $query->fetch(PDO::FETCH_OBJ);
@@ -95,15 +111,16 @@ class Family extends Model
         $select = "SELECT * FROM families join locations on families.location_id = locations.id where location_id = :location_id";
         $query = $this->connect->prepare($select);
         $query->execute(['location_id' => $location_id]);
-
         $families = array();
         while ($row = $query->fetch(PDO::FETCH_OBJ)) {
             $family = new Family();
             $family->setId($row->id);
             $family->setFname($row->fname);
             $family->setMname($row->mname);
-            $family->setFname($row->lname);
+            $family->setLname($row->lname);
             $family->setPhone($row->phone);
+            $family->setStatus($row->status);
+            $family->setLocid($row->location_id);
             $family->setPersonNumber($row->individuals_number);
 
             $families[] = $row;
@@ -113,37 +130,43 @@ class Family extends Model
 
     public function create_family()
     {
-        $insert = "INSERT INTO users (fname,mname,lname,phone,PersonNumber) VALUES (
-            '$this->fname',
-            '$this->mname',
-            '$this->lname',
-            '$this->phone',
-            '$this->individuals_number',
-             ) ";
-            $query=$this->connect->prepare($insert);
-            $query->execute();
-           
+        $insert = "INSERT INTO families (fname,mname,lname,phone,individuals_number,status,location_id) VALUES (
+            :fname,
+            :mname,
+            :lname,
+            :phone,
+            :individuals_number,
+            :status,
+            :location_id
+            ) ";
+        $query = $this->connect->prepare($insert);
+        $query->execute([
+            'fname' => $this->fname,
+            'mname' => $this->mname,
+            'lname' => $this->lname,
+            'phone' => $this->phone,
+            'individuals_number' => $this->individuals_number,
+            'status' => $this->status,
+            'location_id' => $this->location_id
+        ]);
     }
 
     public function edit_family($family_id)
     {
-        $edit = $this->connect->prepare("UPDATE families SET fname =: fname ,mname =: mname ,lname =: lname, phone =: phone, individuals_number =: individuals_number WHERE id =:family_id");
-        $edit->execute(array(
-            ':fname' => $this->fname,
-            ':mname' => $this->mname,
-            ':lname' => $this->lname,
-            ':phone' => $this->phone,
-            ':individuals_number' => $this->individuals_number,
-            ':id' => $family_id
-        ));
+        $edit = $this->connect->prepare("UPDATE families SET phone =:phone, individuals_number =:individuals_number WHERE id =:family_id");
+        $edit->execute(
+            [
+                'phone' => $this->phone,
+                'individuals_number' => $this->individuals_number,
+                'family_id' => $family_id
+            ]
+        );
     }
 
     public function delete_family($family_id)
     {
-                $family = $this->getFamilyById($family_id);
-                $delete = "DELETE FROM families WHERE id = '$this->family_id' ";
-                $query=$this->connect->prepare($delete);
-                $query->execute();
-                
+        $delete = "DELETE FROM families WHERE id = :family_id ";
+        $query = $this->connect->prepare($delete);
+        $query->execute(['family_id' => $family_id]);
     }
 }

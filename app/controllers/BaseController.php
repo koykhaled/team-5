@@ -12,7 +12,7 @@ abstract class BaseController
         require_once __DIR__ .  "/$view";
     }
 
-    public function redirect($page)
+    public function redirect($page = "")
     {
         header("location:" . BASE_PATH . $page);
     }
