@@ -79,6 +79,15 @@ class Family extends Model
 
     public function edit_family($family_id)
     {
+        $edit = $this->connect->prepare("UPDATE families SET fname =: fname ,mname =: mname ,lname =: lname, phone =: phone, individuals_number =: individuals_number WHERE id =:family_id");
+        $edit->execute(array(
+            ':fname' => $this->fname,
+            ':mname' => $this->mname,
+            ':lname' => $this->lname,
+            ':phone' => $this->phone,
+            ':individuals_number' => $this->individuals_number,
+            ':id' => $family_id
+        ));
     }
 
     public function delete_family($family_id)
