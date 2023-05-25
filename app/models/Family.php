@@ -8,10 +8,10 @@ class Family extends Model
     protected $id,
         $fname,
         $mname,
-        $lname,
+        $lname,  
         $phone,
         $location_id,
-        $individuals_number;
+        $individuals_number; 
 
     public function setFname($fname)
     {
@@ -113,6 +113,16 @@ class Family extends Model
 
     public function create_family()
     {
+        $insert = "INSERT INTO users (fname,mname,lname,phone,PersonNumber) VALUES (
+            '$this->fname',
+            '$this->mname',
+            '$this->lname',
+            '$this->phone',
+            '$this->individuals_number',
+             ) ";
+            $query=$this->connect->prepare($insert);
+            $query->execute();
+           
     }
 
     public function edit_family($family_id)
