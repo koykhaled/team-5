@@ -47,5 +47,15 @@ class FamilyController extends Base
 
         $families = $this->familyModel->getAllFamilies();
     }
+    public function delete(){
+        if($_SERVER['REQUEST_METHOD']=='POST')
+
+            $id = $_POST['id'];
+            $family = new Family();
+            $family->getFamilyById($id);
+            $family->delete($this->conn);
+            $this->redirect('');
+            exit;
+    }
 }
  

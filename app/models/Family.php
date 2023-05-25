@@ -131,5 +131,10 @@ class Family extends Model
 
     public function delete_family($family_id)
     {
+                $family = $this->getFamilyById($family_id);
+                $delete = "DELETE FROM families WHERE id = '$this->family_id' ";
+                $query=$this->connect->prepare($delete);
+                $query->execute();
+                
     }
 }
