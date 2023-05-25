@@ -18,6 +18,7 @@ class FamilyController extends Base
 
     public function index()
     {
+
         $this->connect->getAllFamilies();
     }  
     public function create()
@@ -43,3 +44,8 @@ class FamilyController extends Base
 
 
 }
+
+        $families = $this->familyModel->getAllFamilies();
+    }
+}
+ 

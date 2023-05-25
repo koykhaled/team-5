@@ -67,10 +67,48 @@ class Family extends Model
 
     public function getAllFamilies()
     {
+        $results = $this->getAll('families');
+        $families = array();
+        foreach ($results as $result) {
+            $family = new Family();
+            $family->setId($result->id);
+            $family->setFname($result->fname);
+            $family->setMname($result->mname);
+            $family->setFname($result->lname);
+            $family->setPhone($result->phone);
+            $family->setPersonNumber($result->individuals_number);
+            $families[] = $family;
+        }
+    }
+
+    public function getFamilyById($family_id)
+    {
+        $select = "SELECT * FROM families join locations on families.location_id = locations.id where id = :family_id";
+        $query = $this->connect->prepare($select);
+        $query->execute(['family_id' => $family_id]);
+        $family = $query->fetch(PDO::FETCH_OBJ);
+        return $family;
     }
 
     public function getFamilyByLcoation($location_id)
     {
+        $select = "SELECT * FROM families join locations on families.location_id = locations.id where location_id = :location_id";
+        $query = $this->connect->prepare($select);
+        $query->execute(['location_id' => $location_id]);
+
+        $families = array();
+        while ($row = $query->fetch(PDO::FETCH_OBJ)) {
+            $family = new Family();
+            $family->setId($row->id);
+            $family->setFname($row->fname);
+            $family->setMname($row->mname);
+            $family->setFname($row->lname);
+            $family->setPhone($row->phone);
+            $family->setPersonNumber($row->individuals_number);
+
+            $families[] = $row;
+        }
+        return $families;
     }
 
     public function create_family()
