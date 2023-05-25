@@ -39,10 +39,9 @@ class Model
             while ($row = $query->fetch(PDO::FETCH_OBJ)) {
                 $results[] = $row;
             }
-
             return $results;
         } catch (Exception $e) {
-            echo "error while fetch users" . $e->getMessage();
+            echo "error while fetch families" . $e->getMessage();
         }
     }
 }

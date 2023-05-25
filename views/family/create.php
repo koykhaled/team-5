@@ -1,14 +1,30 @@
 <?php
 echo "<form method='POST'>";
-echo "<label>fame:</label><br>";
+echo "<label>First name:</label><br>";
 echo "<input type='text' name='fname'><br>";
-echo "<label>mame:</label><br>";
+echo "<label>Middel name:</label><br>";
 echo "<input type='text' name='mname'><br>";
-echo "<label>lame:</label><br>";
+echo "<label>Last name:</label><br>";
 echo "<input type='text' name='lname'><br>";
-echo "<label>phone:</label><br>";
+echo "<label>Phone:</label><br>";
 echo "<input type='text' name='phone'><br>";
-echo "<label>person number:</label><br>";
-echo "<input type='number' name='personnumber'><br>";
+echo "<label>Individuals Number:</label><br>";
+echo "<input type='number' name='individuals_number'><br>";
+
+?>
+<select name="location">
+    <?php
+    foreach ($locations as $location) {
+
+    ?>
+
+    <option value="<?= $location->getId() ?>"><?= $location->getName() ?></option>
+    <?php
+    }
+    ?>
+</select>
+<?php
+echo '<br>';
 echo "<button type='submit'>Create</button>";
 echo "</form>";
+?>
