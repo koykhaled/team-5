@@ -80,26 +80,32 @@ class Family extends Model
 
     public function getAllFamilies()
     {
-        $results = $this->getAll('families');
-        $families = array();
-        foreach ($results as $result) {
-            $family = new Family();
-            $family->setId($result->id);
-            $family->setFname($result->fname);
-            $family->setMname($result->mname);
-            $family->setLname($result->lname);
-            $family->setPhone($result->phone);
-            $family->setStatus($result->status);
-            $family->setLocid($result->location_id);
-            $family->setPersonNumber($result->individuals_number);
-            $families[] = $family;
+        $select = "SELECT * from families join locations on families.location_id = locations.id";
+        $query = $this->connect->prepare($select);
+        $query->execute();
+        $results = array();
+        while ($row = $query->fetch(PDO::FETCH_OBJ)) {
+            $results[] = $row;
         }
-        return $families;
+        // $families = array();
+        // foreach ($results as $result) {
+        //     $family = new Family();
+        //     $family->setId($result->id);
+        //     $family->setFname($result->fname);
+        //     $family->setMname($result->mname);
+        //     $family->setLname($result->lname);
+        //     $family->setPhone($result->phone);
+        //     $family->setStatus($result->status);
+        //     $family->setLocid($result->location_id);
+        //     $family->setPersonNumber($result->individuals_number);
+        //     $families[] = $family;
+        // }
+        return $results;
     }
 
     public function getFamilyById($family_id)
     {
-        $select = "SELECT * FROM families  where id = :family_id";
+        $select = "SELECT * FROM families  where family_id = :family_id";
         $query = $this->connect->prepare($select);
         $query->execute(['family_id' => $family_id]);
         $family = $query->fetch(PDO::FETCH_OBJ);
@@ -153,7 +159,7 @@ class Family extends Model
 
     public function edit_family($family_id)
     {
-        $edit = $this->connect->prepare("UPDATE families SET phone =:phone, individuals_number =:individuals_number WHERE id =:family_id");
+        $edit = $this->connect->prepare("UPDATE families SET phone =:phone, individuals_number =:individuals_number WHERE family_id =:family_id");
         $edit->execute(
             [
                 'phone' => $this->phone,
@@ -165,7 +171,7 @@ class Family extends Model
 
     public function delete_family($family_id)
     {
-        $delete = "DELETE FROM families WHERE id = :family_id ";
+        $delete = "DELETE FROM families WHERE family_id = :family_id ";
         $query = $this->connect->prepare($delete);
         $query->execute(['family_id' => $family_id]);
     }

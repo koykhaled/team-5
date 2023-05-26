@@ -35,19 +35,60 @@ class FamilyController extends Base
     public function create()
     {
         $locations = $this->locationModel->getAllLocation();
-
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $this->familyModel->setFname($_POST['fname']);
-            $this->familyModel->setMname($_POST['mname']);
-            $this->familyModel->setLname($_POST['lname']);
-            $this->familyModel->setPhone($_POST['phone']);
-            $this->familyModel->setPersonNumber($_POST['individuals_number']);
-            $this->familyModel->setStatus(1);
-            $this->familyModel->setLocid($_POST['location']);
-            $this->familyModel->create_family();
 
-            $this->redirect();
-            exit;
+
+            if (empty($_POST['fname']) || empty($_POST['mname']) || empty($_POST['lname']) || empty($_POST['phone']) || empty($_POST['individuals_number']) || empty($_POST['status']) || empty($_POST['location'])) {
+                $_SESSION['error'] = 'please fill out all inputs';
+                $this->render("../../views/family/create.php", compact("locations"));
+            } else {
+                if (!preg_match("/^[a-zA-Z0-9]*$/", $_POST['fname']) or !preg_match("/^[a-zA-Z0-9]*$/", $_POST['mname']) or !preg_match("/^[a-zA-Z0-9]*$/", $_POST['lname'])) {
+                    $_SESSION['error'] = 'Unvalid Name';
+                    $this->render("../../views/family/create.php", compact("locations"));
+                } else {
+                    $fname = $this->test_data($_POST['fname']);
+                    $mname = $this->test_data($_POST['mname']);
+                    $lname = $this->test_data($_POST['lname']);
+                }
+
+
+                if (isset($_POST['status']) and $_POST['status']  == "employee") {
+                    $status = 1;
+                } else {
+                    $status = 0;
+                }
+
+                if (!preg_match('/^[0-9]{10,}$/', $_POST['phone'])) {
+                    $_SESSION['error'] = 'Unvalid phone';
+                    $this->render("../../views/family/create.php", compact("locations"));
+                } else {
+                    $individuals_number = $this->test_data($_POST['individuals_number']);
+                }
+
+
+                if (!preg_match('/^[2-9]+$/', $_POST['individuals_number'])) {
+                    $_SESSION['error'] = 'Unvalid Number';
+                    $this->render("../../views/family/create.php", compact("locations"));
+                } else {
+                    $phone = $this->test_data($_POST['phone']);
+                }
+
+
+                if (isset($fname) and isset($mname) and isset($individuals_number) and isset($lname) and isset($phone) and isset($_POST['location'])) {
+                    $this->familyModel->setFname($fname);
+                    $this->familyModel->setMname($mname);
+                    $this->familyModel->setLname($lname);
+                    $this->familyModel->setPhone($phone);
+                    $this->familyModel->setPersonNumber($individuals_number);
+                    $this->familyModel->setStatus($status);
+                    $this->familyModel->setLocid($_POST['location']);
+                    $this->familyModel->create_family();
+                    $this->redirect();
+                    exit;
+                } else {
+                    $_SESSION['error'] = 'error with create family';
+                }
+            }
         } else {
             $this->render("../../views/family/create.php", compact("locations"));
         }

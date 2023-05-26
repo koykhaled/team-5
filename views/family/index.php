@@ -35,8 +35,9 @@
             ?>
             <p><?= "Family Name : " . $family->lname ?></p>
             <p><?= "individuals Number : " . $family->individuals_number ?></p>
-            <a href="<?= BASE_PATH . 'delete/' . $family->id ?>"><button>Delete</button></a>
-            <a href="<?= BASE_PATH . 'edit/' . $family->id ?>"><button>Edit</button></a>
+            <p><?= "Location : " . $family->location_name ?></p>
+            <a href="<?= BASE_PATH . 'delete/' . $family->family_id ?>"><button>Delete</button></a>
+            <a href="<?= BASE_PATH . 'edit/' . $family->family_id ?>"><button>Edit</button></a>
             <hr>
             <?php
                 }
@@ -44,11 +45,11 @@
 
                 foreach ($families as $family) {
                 ?>
-            <p><?= "Family Name : " . $family->getLname() ?></p>
-            <p><?= "individuals Number : " . $family->getPersonNumber() ?></p>
-            <p><?= "Location : " . $family->getLocId() ?></p>
-            <a href=" <?= BASE_PATH . 'delete/' . $family->getId() ?>"><button>Delete</button></a>
-            <a href="<?= BASE_PATH . 'edit/' . $family->getId() ?>""><button>Edit</button></a>
+            <p><?= "Family Name : " . $family->lname ?></p>
+            <p><?= "individuals Number : " . $family->individuals_number ?></p>
+            <p><?= "Location : " . $family->location_name ?></p>
+            <a href=" <?= BASE_PATH . 'delete/' . $family->family_id ?>"><button>Delete</button></a>
+            <a href="<?= BASE_PATH . 'edit/' . $family->family_id ?>"><button>Edit</button></a>
             <hr>
             <?php
                 }

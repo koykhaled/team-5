@@ -3,6 +3,7 @@
 namespace app\Mo;
 
 use app\Mo\Model;
+use PDO;
 
 require_once __DIR__  . '/Model.php';
 
@@ -33,5 +34,14 @@ class Location extends Model
             $locations[] = $location;
         }
         return $locations;
+    }
+
+    public function getLocationById($location_id)
+    {
+        $select = "SELECT * FROM locations  where id = :location_id";
+        $query = $this->connect->prepare($select);
+        $query->execute(['location_id' => $location_id]);
+        $location = $query->fetch(PDO::FETCH_OBJ);
+        return $location;
     }
 }
