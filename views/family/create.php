@@ -1,4 +1,4 @@
-<h1>Create Family</h1>
+<h1>Create Family!!</h1>
 
 <?php
 if (isset($_SESSION['error'])) {
