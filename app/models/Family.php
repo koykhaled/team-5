@@ -7,7 +7,6 @@ use app\Mo\Model;
 require_once __DIR__  . '/Model.php';
 class Family extends Model
 {
-    protected int $id;
     protected string $fname;
     protected string $mname;
     protected string $lname;
