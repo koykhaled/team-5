@@ -56,35 +56,24 @@ class User extends Model
         $result = $query->fetch(PDO::FETCH_OBJ);
         return $result;
     }
-    public function create_user()
+    public function getUserByEmail($email)
     {
-        $insert = "INSERT INTO users (user_name,user_password,user_email,user_type) VALUES (
-            :user_name,
-            :user_password,
-            :user_email,
-            :user_type,
-            ) ";
-        $query = $this->connect->prepare($insert);
-        $query->execute([
-            'user_name' => $this->user_name,
-            'user_email' => $this->user_email,
-            'user_password' => $this->user_password,
-            'user_type' => $this->user_type,
-          
-        ]);
+        $select = "SELECT * FROM users where user_email = :user_email";
+        $query = $this->connect->prepare($select);
+        $query->execute(['user_id' => $email]);
+        $result = $query->fetch(PDO::FETCH_OBJ);
+        return $result;
     }
-
-    public function userLogin($user_email,$user_password){
-        $select="SELECT * FROM users WHERE user_email=:user_email AND user_password=:user_password";
-        $query= $this->connect->prepare($select);
-        $query->execute(['user_email'=>$user_email,'user_password'=>$user_password]);
-        $row= $query->fetch(PDO::FETCH_OBJ);
-        if($query->rowCount()>0){
+    public function userLogin($user_email, $user_password)
+    {
+        $select = "SELECT * FROM users WHERE user_email=:user_email AND user_password=:user_password";
+        $query = $this->connect->prepare($select);
+        $query->execute(['user_email' => $user_email, 'user_password' => $user_password]);
+        $row = $query->fetch(PDO::FETCH_OBJ);
+        if ($query->rowCount() > 0) {
             return $row;
-        }else{
+        } else {
             return false;
         }
-    
     }
-    
 }

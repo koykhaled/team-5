@@ -15,54 +15,26 @@ class UserController extends Base
     {
         $this->userModel = new User();
     }
-
-
-    public function create_user()
+    public function login()
     {
-        $user = $this->userModel->getUserByemail($_POST["user_email"]);
-        if(isset($user))
-        {
-            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                $user = new User();
-                $user->setusername($_POST['user_name']);
-                $user->setUserEmail($_POST['user_email']);
-                $user->setUserPassword($_POST['user_password']);
-                $user->setUserType($_POST['user_type']); 
-               
-    
-                header('Location: ');
-                exit;
-    
-            }
-        } 
-        else 
-        {
-            $_SESSION["error"]="user already exist";
-            exit;
-        }
-    }
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-    
-
-    }
-    public function login(){
-        if($_SERVER['REQUEST_METHOD']== 'POST'){
-            
             if (empty($_POST['user_email']) or empty($_POST['user_password'])) {
                 $_SESSION['error'] = "please fill all fields";
-                $this->render();
-        }else{
-            $user = $this->userModel->userLogin( $_POST['user_email'], $_POST['user_password']);
-            if ($user) {
-                $_SESSION['user_id'] = $user['user_id'];
-                $_SESSION['user_name'] = $user['user_name'];
-                $_SESSION['user_email'] = $user['user_email'];
-                $_SESSION['user_password'] = $user['user_password'];
-                $_SESSION['user_type'] = $user['user_type'];
-                redirect();
+                $this->render('../../views/user/login.php');
+            } else {
+                $user = $this->userModel->userLogin($_POST['user_email'], $_POST['user_password']);
+                if ($user) {
+                    $_SESSION['user_id'] = $user['user_id'];
+                    $_SESSION['user_name'] = $user['user_name'];
+                    $_SESSION['user_email'] = $user['user_email'];
+                    $_SESSION['user_password'] = $user['user_password'];
+                    $_SESSION['user_type'] = $user['user_type'];
+                    $this->redirect();
+                }
             }
+        } else {
+            $this->render('../../views/user/login.php');
         }
-    
     }
-    }    
 }

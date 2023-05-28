@@ -1,18 +1,21 @@
 <?php
 
+declare(strict_types=1);
+
 use app\Mo\Model;
 
 require_once __DIR__  . '/Model.php';
 class Family extends Model
 {
-    protected $id,
-        $fname,
-        $mname,
-        $lname,
-        $phone,
-        $location_id,
-        $status,
-        $individuals_number;
+    protected string $fname;
+    protected string $mname;
+    protected string $lname;
+    protected string $phone;
+
+
+    protected int $location_id;
+    protected bool $status;
+    protected int $individuals_number;
 
     public function setFname($fname)
     {
