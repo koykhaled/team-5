@@ -22,8 +22,6 @@
             <label for=" remember">Remember Me:</label>
             <input type="checkbox" name="remember" id="remember"><br>
             <input type="submit" name="login" value="Login">
-            <p>didn't sign up yet?</p>
-            <a href="/PHPCOURSE/Darrebeni/team-5/register">Sign Up</a>
         </form>
     </center>
 </body>

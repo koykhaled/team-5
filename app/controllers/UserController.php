@@ -17,26 +17,24 @@ class UserController extends Base
     }
 
 
-    public function create_user()
+    public function create()
     {
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $user = $this->userModel->getUserByemail($_POST["user_email"]);
-            if (isset($user)) {
+            if ($user) {
                 $_SESSION['error'] = "user already exist";
-                $this->render('../../views/user/register.php');
+                $this->render('../../views/user/create_user.php');
+            } else {
+                $this->userModel->setUserName($_POST['user_name']);
+                $this->userModel->setUserEmail($_POST['user_email']);
+                $this->userModel->setUserPassword($_POST['password']);
+                $this->userModel->create_user();
+                $this->redirect("login");
+                exit;
             }
-            $user = new User();
-            $user->setUserName($_POST['user_name']);
-            $user->setUserEmail($_POST['user_email']);
-            $user->setUserPassword($_POST['user_password']);
-            $user->setUserType($_POST['user_type']);
-
-
-            $this->redirect("login");
-            exit;
         } else {
-            $this->render('../../views/user/register.php');
+            $this->render('../../views/user/create_user.php');
         }
     }
 
@@ -53,7 +51,7 @@ class UserController extends Base
             } else {
                 $user = $this->userModel->userLogin($_POST['user_email'], $_POST['user_password']);
                 if ($user) {
-
+                    session_start();
                     $_SESSION['user_id'] = $user->user_id;
                     $_SESSION['user_name'] = $user->user_name;
                     $_SESSION['user_email'] = $user->user_email;
@@ -65,5 +63,11 @@ class UserController extends Base
         } else {
             $this->render('../../views/user/login.php');
         }
+    }
+
+    public function logout()
+    {
+        session_destroy();
+        $this->redirect("login");
     }
 }

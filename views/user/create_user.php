@@ -17,9 +17,7 @@
             User Email<input type="text" name="user_email" id="">
             Password<input type="password" name="password" id="">
             Confirm Password<input type="password" name="confirm_password" id="">
-            <input type="submit" value="Register">
-            <p>didn't sign up yet?</p>
-            <a href="/PHPCOURSE/Darrebeni/team-5/login">Sign in</a>
+            <input type="submit" value="Create">
         </form>
     </center>
 </body>
