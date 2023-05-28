@@ -56,6 +56,24 @@ class User extends Model
         $result = $query->fetch(PDO::FETCH_OBJ);
         return $result;
     }
+    public function create_user()
+    {
+        $insert = "INSERT INTO users (user_name,user_password,user_email,user_type) VALUES (
+            :user_name,
+            :user_password,
+            :user_email,
+            :user_type,
+            ) ";
+        $query = $this->connect->prepare($insert);
+        $query->execute([
+            'user_name' => $this->user_name,
+            'user_email' => $this->user_email,
+            'user_password' => $this->user_password,
+            'user_type' => $this->user_type,
+          
+        ]);
+    }
+
     public function userLogin($user_email,$user_password){
         $select="SELECT * FROM users WHERE user_email=:user_email AND user_password=:user_password";
         $query= $this->connect->prepare($select);
