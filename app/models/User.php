@@ -73,4 +73,18 @@ class User extends Model
           
         ]);
     }
+
+    public function userLogin($user_email,$user_password){
+        $select="SELECT * FROM users WHERE user_email=:user_email AND user_password=:user_password";
+        $query= $this->connect->prepare($select);
+        $query->execute(['user_email'=>$user_email,'user_password'=>$user_password]);
+        $row= $query->fetch(PDO::FETCH_OBJ);
+        if($query->rowCount()>0){
+            return $row;
+        }else{
+            return false;
+        }
+    
+    }
+    
 }
