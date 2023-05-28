@@ -56,4 +56,12 @@ class User extends Model
         $result = $query->fetch(PDO::FETCH_OBJ);
         return $result;
     }
+    public function getUserByEmail($email)
+    {
+        $select = "SELECT * FROM users where user_email = :user_email";
+        $query = $this->connect->prepare($select);
+        $query->execute(['user_id' => $email]);
+        $result = $query->fetch(PDO::FETCH_OBJ);
+        return $result;
+    }
 }

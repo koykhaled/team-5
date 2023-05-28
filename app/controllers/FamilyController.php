@@ -22,14 +22,18 @@ class FamilyController extends Base
 
     public function index()
     {
-        $families = $this->familyModel->getAllFamilies();
-        $locations = $this->locationModel->getAllLocation();
-        if (isset($_GET['location'])) {
-            $family_with_location = $this->familyModel->getFamilyByLcoation($_GET['location']);
+        if (isset($_SESSION['user_id'])) {
+            $families = $this->familyModel->getAllFamilies();
+            $locations = $this->locationModel->getAllLocation();
+            if (isset($_GET['location'])) {
+                $family_with_location = $this->familyModel->getFamilyByLcoation($_GET['location']);
 
-            $this->render("../../views/family/index.php", compact(['locations', 'family_with_location']));
+                $this->render("../../views/family/index.php", compact(['locations', 'family_with_location']));
+            } else {
+                $this->render("../../views/family/index.php", compact(['families', 'locations']));
+            }
         } else {
-            $this->render("../../views/family/index.php", compact(['families', 'locations']));
+            $this->redirect("login");
         }
     }
     public function create()
