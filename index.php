@@ -24,7 +24,7 @@ switch ($route) {
         break;
     case BASE_PATH . "create":
         $user = new US();
-        $user->create_user();
+        // $user->create_user();
         break;
 
     case BASE_PATH . "delete/" . substr($route, strlen(BASE_PATH . "delete/")):
