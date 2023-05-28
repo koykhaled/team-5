@@ -17,13 +17,11 @@
             <input type="text" id="username" name="user_email">
             <br>
             <label for=" password">Password:</label>
-            <input type="password" id="password" name="password">
+            <input type="password" id="password" name="user_password">
             <br>
             <label for=" remember">Remember Me:</label>
             <input type="checkbox" name="remember" id="remember"><br>
             <input type="submit" name="login" value="Login">
-            <p>didn't sign up yet?</p>
-            <a href="/PHPCOURSE/Darrebeni/htaccess_Task/register">Sign Up</a>
         </form>
     </center>
 </body>
