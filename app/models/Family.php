@@ -7,15 +7,11 @@ use app\Mo\Model;
 require_once __DIR__  . '/Model.php';
 class Family extends Model
 {
-    protected string $fname;
-    protected string $mname;
-    protected string $lname;
-    protected string $phone;
 
+    protected string $fname, $mname, $lname, $phone;
+    protected int $location_id, $individuals_number;
+    protected bool $status, $property;
 
-    protected int $location_id;
-    protected bool $status;
-    protected int $individuals_number;
 
     public function setFname($fname)
     {
@@ -40,6 +36,10 @@ class Family extends Model
     {
         $this->location_id = $location_id;
     }
+    public function setProperty($property)
+    {
+        $this->property = $property;
+    }
 
     public function setPersonNumber($number)
     {
@@ -62,6 +62,10 @@ class Family extends Model
     public function getLname()
     {
         return $this->lname;
+    }
+    public function getProperty()
+    {
+        return $this->property;
     }
     public function getStatus()
     {
@@ -126,14 +130,15 @@ class Family extends Model
 
     public function create_family()
     {
-        $insert = "INSERT INTO families (fname,mname,lname,phone,individuals_number,status,location_id) VALUES (
+        $insert = "INSERT INTO families (fname,mname,lname,phone,individuals_number,status,location_id,property) VALUES (
             :fname,
             :mname,
             :lname,
             :phone,
             :individuals_number,
             :status,
-            :location_id
+            :location_id,
+            :property
             ) ";
         $query = $this->connect->prepare($insert);
         $query->execute([
@@ -143,7 +148,8 @@ class Family extends Model
             'phone' => $this->phone,
             'individuals_number' => $this->individuals_number,
             'status' => $this->status,
-            'location_id' => $this->location_id
+            'location_id' => $this->location_id,
+            'property' => $this->property,
         ]);
     }
 

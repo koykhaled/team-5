@@ -1,6 +1,8 @@
 <?php
 
-namespace app\Controllers;
+namespace app\Co;
+
+session_start();
 
 use app\Co\BaseController as Base;
 use app\Mo\Location;
@@ -22,12 +24,17 @@ class FamilyController extends Base
 
     public function index()
     {
+
+
         if (isset($_SESSION['user_id'])) {
+
             $families = $this->familyModel->getAllFamilies();
             $locations = $this->locationModel->getAllLocation();
             if (isset($_GET['location'])) {
                 $family_with_location = $this->familyModel->getFamilyByLcoation($_GET['location']);
 
+
+          
                 $this->render("../../views/family/index.php", compact(['locations', 'family_with_location']));
             } else {
                 $this->render("../../views/family/index.php", compact(['families', 'locations']));

@@ -17,16 +17,14 @@
             User Email<input type="text" name="user_email" id="">
             Password<input type="password" name="password" id="">
             Confirm Password<input type="password" name="confirm_password" id="">
-            <input type="submit" value="Register">
-            <p>didn't sign up yet?</p>
-            <a href="/PHPCOURSE/Darrebeni/htaccess_Task/login">Sign in</a>
+            <input type="submit" value="Create">
         </form>
     </center>
 </body>
 <style>
-    input {
-        display: block;
-    }
+input {
+    display: block;
+}
 </style>
 
 </html>

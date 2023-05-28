@@ -21,6 +21,9 @@ echo "<input type='number' name='individuals_number'><br>";
 <label for="n">Employee </label>
 <input type="radio" name="status" value="not_Employee" id="n">
 <label for="emp">Not Employee </label><br>
+<label for="status">Have an Earth : </label>
+<button name="yes" value="1">yes</button>
+<button name="no" value="2">No</button><br>
 <select name="location">
     <?php
     foreach ($locations as $location) {

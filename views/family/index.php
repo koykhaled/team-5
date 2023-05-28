@@ -16,7 +16,14 @@
                 <h1>Family</h1>
             </a>
 
-            <a href="<?= BASE_PATH . 'create' ?> ">Add Family</a>
+            <a href="<?= BASE_PATH . 'create' ?> ">Add Family</a><br>
+            <?php
+            if (isset($_SESSION['user_type']) and $_SESSION['user_type'] == "admin") {
+            ?>
+            <a href="<?= BASE_PATH . 'create-user' ?> ">Add Employee</a>
+            <?php
+            }
+            ?>
             <hr>
             <a href="<?= BASE_PATH ?>">All</a><br>
             <?php
@@ -38,6 +45,7 @@
             <p><?= "Location : " . $family->location_name ?></p>
             <a href="<?= BASE_PATH . 'delete/' . $family->family_id ?>"><button>Delete</button></a>
             <a href="<?= BASE_PATH . 'edit/' . $family->family_id ?>"><button>Edit</button></a>
+            <a href="<?= BASE_PATH . 'add-property/' . $family->family_id ?>"><button>Add Property</button></a>
             <hr>
             <?php
                 }
@@ -50,13 +58,16 @@
             <p><?= "Location : " . $family->location_name ?></p>
             <a href=" <?= BASE_PATH . 'delete/' . $family->family_id ?>"><button>Delete</button></a>
             <a href="<?= BASE_PATH . 'edit/' . $family->family_id ?>"><button>Edit</button></a>
+            <a href="<?= BASE_PATH . 'create-property/' . $family->family_id ?>"><button>Add Property</button></a>
             <hr>
             <?php
                 }
             }
             ?>
         </div>
-        <div></div>
+        <div>
+            <a href="<?= BASE_PATH . 'logout' ?>">Logout</a>
+        </div>
     </div>
 </body>
 <style>
