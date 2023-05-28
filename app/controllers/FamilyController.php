@@ -1,6 +1,6 @@
 <?php
 
-namespace app\Controllers;
+namespace app\Co;
 
 use app\Co\BaseController as Base;
 use app\Mo\Location;
