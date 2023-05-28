@@ -87,19 +87,6 @@ class Family extends Model
         while ($row = $query->fetch(PDO::FETCH_OBJ)) {
             $results[] = $row;
         }
-        // $families = array();
-        // foreach ($results as $result) {
-        //     $family = new Family();
-        //     $family->setId($result->id);
-        //     $family->setFname($result->fname);
-        //     $family->setMname($result->mname);
-        //     $family->setLname($result->lname);
-        //     $family->setPhone($result->phone);
-        //     $family->setStatus($result->status);
-        //     $family->setLocid($result->location_id);
-        //     $family->setPersonNumber($result->individuals_number);
-        //     $families[] = $family;
-        // }
         return $results;
     }
 

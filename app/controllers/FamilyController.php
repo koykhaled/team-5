@@ -2,7 +2,7 @@
 
 namespace app\Controllers;
 
-use app\Controllers\BaseController as Base;
+use app\Co\BaseController as Base;
 use app\Mo\Location;
 use Family;
 
