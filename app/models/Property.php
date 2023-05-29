@@ -11,8 +11,8 @@ require_once 'Model.php';
 class Property extends Model
 {
     protected string $prop_type;
-    protected float $prop_amount, $prop_earnings;
-    protected int $family_id;
+    protected  $prop_amount, $prop_earnings;
+    protected  $family_id;
 
     public function setPropType($prop_type)
     {

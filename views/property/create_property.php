@@ -13,9 +13,9 @@
         <label for="planet_type">Planet Type : </label>
         <input type="text" name="prop_type" id="planet_type"><br>
         <label for="planet_amount">Planet Amount : </label>
-        <input type="text" name="prop_amount" id="planet_amount"><br>
+        <input type="number" name="prop_amount" id="planet_amount"><br>
         <label for="sales">Sales : </label>
-        <input type="text" name="prop_earnings" id="sales"><br>
+        <input type="number" name="prop_earnings" id="sales"><br>
         <input type="submit" value="Create">
     </form>
 </body>
