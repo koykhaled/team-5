@@ -17,6 +17,7 @@ class UserController extends Base
     }
 
 
+
     public function create()
     {
 
@@ -45,12 +46,14 @@ class UserController extends Base
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
+
             if (empty($_POST['user_email']) or empty($_POST['user_password'])) {
                 $_SESSION['error'] = "please fill all fields";
                 $this->render('../../views/user/login.php');
             } else {
                 $user = $this->userModel->userLogin($_POST['user_email'], $_POST['user_password']);
                 if ($user) {
+
                     session_start();
                     $_SESSION['user_id'] = $user->user_id;
                     $_SESSION['user_name'] = $user->user_name;
@@ -64,6 +67,7 @@ class UserController extends Base
             $this->render('../../views/user/login.php');
         }
     }
+
 
     public function logout()
     {

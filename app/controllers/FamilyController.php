@@ -31,7 +31,6 @@ class FamilyController extends Base
             $locations = $this->locationModel->getAllLocation();
             if (isset($_GET['location'])) {
                 $family_with_location = $this->familyModel->getFamilyByLcoation($_GET['location']);
-
                 $this->render("../../views/family/index.php", compact(['locations', 'family_with_location']));
             } else {
                 $this->render("../../views/family/index.php", compact(['families', 'locations']));

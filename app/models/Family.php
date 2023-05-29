@@ -5,9 +5,11 @@ use app\Mo\Model;
 require_once __DIR__  . '/Model.php';
 class Family extends Model
 {
+
     protected string $fname, $mname, $lname, $phone;
     protected int $location_id, $individuals_number;
     protected bool $status, $property;
+
 
     public function setFname($fname)
     {
