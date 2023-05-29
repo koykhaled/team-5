@@ -39,13 +39,15 @@ class FamilyController extends Base
             $this->redirect("login");
         }
     }
+
+
     public function create()
     {
         $locations = $this->locationModel->getAllLocation();
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
-            if (empty($_POST['fname']) || empty($_POST['mname']) || empty($_POST['lname']) || empty($_POST['phone']) || empty($_POST['individuals_number']) || empty($_POST['status']) || empty($_POST['location'])) {
+            if (empty($_POST['fname']) || empty($_POST['mname']) || empty($_POST['lname']) || empty($_POST['property']) || empty($_POST['phone']) || empty($_POST['individuals_number']) || empty($_POST['status']) || empty($_POST['location'])) {
                 $_SESSION['error'] = 'please fill out all inputs';
                 $this->render("../../views/family/create.php", compact("locations"));
             } else {
@@ -59,10 +61,15 @@ class FamilyController extends Base
                 }
 
 
-                if (isset($_POST['status']) and $_POST['status']  == "employee") {
+                if ($_POST['status']  == "employee") {
                     $status = 1;
                 } else {
                     $status = 0;
+                }
+                if ($_POST['property']  == "yes") {
+                    $property = 1;
+                } else {
+                    $property = 0;
                 }
 
                 if (!preg_match('/^[0-9]{10,}$/', $_POST['phone'])) {
@@ -81,7 +88,7 @@ class FamilyController extends Base
                 }
 
 
-                if (isset($fname) and isset($mname) and isset($individuals_number) and isset($lname) and isset($phone) and isset($_POST['location'])) {
+                if (isset($fname) and isset($mname) and isset($individuals_number) and isset($lname) and isset($phone) and isset($_POST['location']) and isset($property)) {
                     $this->familyModel->setFname($fname);
                     $this->familyModel->setMname($mname);
                     $this->familyModel->setLname($lname);
@@ -89,6 +96,7 @@ class FamilyController extends Base
                     $this->familyModel->setPersonNumber($individuals_number);
                     $this->familyModel->setStatus($status);
                     $this->familyModel->setLocid($_POST['location']);
+                    $this->familyModel->setProperty($property);
                     $this->familyModel->create_family();
                     $this->redirect();
                     exit;

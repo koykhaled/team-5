@@ -36,6 +36,10 @@ switch ($route) {
         $user = new US();
         $user->create();
         break;
+    case BASE_PATH . "show-family-propery-amount":
+        $property = new PropertyController();
+        $property->showFamilyPropByAmount();
+        break;
 
     case BASE_PATH . "create-property/" . substr($route, strlen(BASE_PATH . "create-property/")):
         $id = substr($route, strlen(BASE_PATH . 'create-property/'));

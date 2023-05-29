@@ -3,6 +3,7 @@
 <?php
 if (isset($_SESSION['error'])) {
     echo '<small>' . $_SESSION['error'] . '</small>';
+    unset($_SESSION['error']);
 }
 echo "<form method='POST'>";
 echo "<label>First name:</label><br>";
@@ -17,13 +18,15 @@ echo "<label>Individuals Number:</label><br>";
 echo "<input type='number' name='individuals_number'><br>";
 ?>
 <label for="status">Is Employee : </label><br>
-<input type="radio" name="status" value="employee" id="emp">
+<input type="radio" name="status" value="employee" id="n">
 <label for="n">Employee </label>
 <input type="radio" name="status" value="not_Employee" id="n">
 <label for="emp">Not Employee </label><br>
-<label for="status">Have an Earth : </label>
-<button name="yes" value="1">yes</button>
-<button name="no" value="2">No</button><br>
+<label for="prop">Have an Earth : </label>
+<input type="radio" name="property" value="yes" id="yes">
+<label for="yes">Yes </label>
+<input type="radio" name="property" value="no" id="no">
+<label for="no">No</label><br>
 <select name="location">
     <?php
     foreach ($locations as $location) {

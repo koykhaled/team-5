@@ -33,6 +33,8 @@
             <?php
             }
             ?>
+            <hr>
+            <a href="<?= BASE_PATH . 'show-family-propery-amount' ?>">familyByPropertyAmount</a>
 
         </div>
         <div class="content">
