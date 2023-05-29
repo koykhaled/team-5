@@ -41,9 +41,9 @@ class UserController extends Base
 
 
 
-   
     public function login()
     {
+
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
@@ -60,11 +60,6 @@ class UserController extends Base
                     $_SESSION['user_email'] = $user->user_email;
                     $_SESSION['user_password'] = $user->user_password;
                     $_SESSION['user_type'] = $user->user_type;
-                    $_SESSION['user_id'] = $user['user_id'];
-                    $_SESSION['user_name'] = $user['user_name'];
-                    $_SESSION['user_email'] = $user['user_email'];
-                    $_SESSION['user_password'] = $user['user_password'];
-                    $_SESSION['user_type'] = $user['user_type'];
                     $this->redirect();
                 }
             }
@@ -79,6 +74,4 @@ class UserController extends Base
         session_destroy();
         $this->redirect("login");
     }
-
-
 }

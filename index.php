@@ -9,8 +9,6 @@ use app\Co\UserController as US;
 use app\Co\PropertyController;
 
 
-
-
 define('BASE_PATH', '/PHPCOURSE/Darrebeni/team-5/');
 
 $route = $_SERVER['REQUEST_URI'];
@@ -29,7 +27,6 @@ switch ($route) {
         $user = new US();
         $user->login();
         break;
-
     case BASE_PATH . "logout":
         $user = new US();
         $user->logout();
@@ -44,11 +41,6 @@ switch ($route) {
         $id = substr($route, strlen(BASE_PATH . 'create-property/'));
         $property = new PropertyController();
         $property->create($id);
-
-    case BASE_PATH . "create":
-        $user = new US();
-        // $user->create_user();
-
         break;
 
     case BASE_PATH . "delete/" . substr($route, strlen(BASE_PATH . "delete/")):
